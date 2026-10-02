@@ -1,110 +1,106 @@
 # ⚙️ Chrona100
 
-Chrona100 is a lightweight time calculation tool that converts real-world time (Epoch 2000) into a custom 100-based unit system with cycles, tags, tiks, miks and units.
+**Chrona100** is a lightweight, deterministic time calculation system that converts real-world UTC time into a structured, decimal (100-based) time representation starting from **Epoch 2000** (01.01.2000 00:00:00 UTC).
 
-It includes:
-- encoder / decoder
-- live time conversion
-- debug view
-- deterministic time structure
+It replaces irregular Gregorian units (months, leap hours, 60-second minutes) with a uniform, hierarchical structure consisting of **Cycles, Tags, Tiks, Miks, and Units**.
 
 ---
 
-# 🌍 Concept
+## 🌍 Concept & Epoch
 
-Chrona100 is based on a fixed time epoch:
-
-
-01.01.2000 00:00:00 UTC
-
-
-From this point, all time is converted into a structured numeric system.
+* **Base Epoch:** `2000-01-01 00:00:00 UTC` (Chrona Standard Time `0:0:0:0:0`)
+* **Core Ratio:** $1 \text{ second} \approx 11.574074074 \text{ Units}$
+* **1 Standard Day (86,400s):** Exactly $1,000,000 \text{ Units}$
 
 ---
 
-# ⏱ Core Conversion
+## 🧩 Time Hierarchy Structure
 
+Chrona100 operates on a hierarchical 100-based scale:
 
-1 second = 11.574074 Units
-
-
----
-
-# 🧩 Chrona100 Structure
-
-Time is split into a hierarchical 100-based system:
-
-
-1 Cycle = 100,000,000 Units
-1 Tag = 1,000,000 Units
-1 Tik = 10,000 Units
-1 Mik = 100 Units
-
+| Unit | Sub-Units | Total Units | Real World Equivalent (Approx.) |
+| :--- | :--- | :--- | :--- |
+| **1 Unit** | - | $1$ | $\approx 86.4 \text{ ms}$ ($0.0864 \text{s}$) |
+| **1 Mik** | $100 \text{ Units}$ | $100$ | $\approx 8.64 \text{ s}$ |
+| **1 Tik** | $100 \text{ Miks}$ | $10,000$ | $14 \text{ min } 24 \text{ s}$ ($864 \text{s}$) |
+| **1 Tag** | $100 \text{ Tiks}$ | $1,000,000$ | $24 \text{ hours}$ ($86,400 \text{s}$) |
+| **1 Cycle** | $100 \text{ Tags}$ | $100,000,000$ | $100 \text{ days}$ |
 
 ---
 
-# 🔁 Features
+## 💾 Mathematical Encoding
 
-✔ Real-time conversion  
-✔ Epoch-based calculation  
-✔ Encoder / Decoder system  
-✔ Debug tool for developers  
-✔ Fully deterministic logic  
+A Chrona100 value is uniquely encoded into a total unit count using the following formula:
+
+$$\text{TotalUnits} = (\text{Cycle} \times 10^8) + (\text{Tag} \times 10^6) + (\text{Tik} \times 10^4) + (\text{Mik} \times 10^2) + \text{Unit}$$
 
 ---
 
-# 💾 Example Encoding
+## 🔁 Features
 
-
-ChronaValue =
-(Cycle × 10^8)
-
-(Tag × 10^6)
-(Tik × 10^4)
-(Mik × 10^2)
-Unit
+- ✔ **Real-Time Conversion:** Live conversion between standard JS `Date` / PHP `DateTime` and Chrona100 format.
+- ✔ **Deterministic Logic:** Pure mathematical mapping from Epoch 2000 without leap second edge-case issues.
+- ✔ **Encoder & Decoder:** Full two-way conversion support.
+- ✔ **Developer Utilities:** Includes interactive web UI and debug view.
+- ✔ **Multi-Language Support:** SDK available for JavaScript and PHP.
 
 ---
 
-# 🧠 Purpose
+## 🚀 Usage & Quickstart
 
-Chrona100 is designed as:
+### 1. Web Interface
+Clone the repository and open `index.html` in any modern web browser to view live time conversions and the debug tool.
 
-- a time transformation system
-- a developer utility
-- a simulation-friendly time format
-- a reproducible time standard
+```bash
+git clone [https://github.com/Tino2007-bernert/chrona100.git](https://github.com/Tino2007-bernert/chrona100.git)
+cd chrona100
+# Open index.html in your browser
+
+```
+
+### 2. JavaScript (`chrona.js`)
+
+```javascript
+import { Chrona } from './chrona.js';
+
+// Encode current time to Chrona
+const chronaTime = Chrona.now();
+console.log(chronaTime.toString()); // e.g., "97:84:12:05:42"
+
+// Decode Chrona back to JS Date
+const date = Chrona.decode("97:84:12:05:42");
+console.log(date.toISOString());
+
+```
+
+### 3. PHP (`chrona.php`)
+
+```php
+require_once 'chrona.php';
+
+// Encode current timestamp
+$chrona = Chrona::now();
+echo $chrona->format(); // e.g., "97:84:12:05:42"
+
+// Decode back to UNIX timestamp / DateTime
+$dateTime = Chrona::decode("97:84:12:05:42");
+
+```
 
 ---
 
-# 🚀 Usage
+## ⚙️️ Status
 
-Clone the repo and open:
-
-
-index.html
-
-
-or use the SDK:
-
-- JavaScript (chrona.js)
-- PHP (chrona.php)
+This project is experimental and under active development.
 
 ---
 
-# ⚙️ Status
+## 👤 Author
 
-This project is experimental and evolving.
-
----
-
-# 👤 Author
-
-Created by **Tino Bernert**
+* **Tino Bernert** — Creator & Developer
 
 ---
 
-# 🔗 Repository
+## 🔗 Links
 
-Chrona100 project:
-[GITHUB REPO](https://github.com/Tino2007-bernert/chrona100/)
+* **Repository:** [GitHub - Tino2007-bernert/chrona100](https://www.google.com/search?q=https://github.com/Tino2007-bernert/chrona100)
